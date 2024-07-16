@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>APP NAME Coding Challenge by Morote</title>
+    <title>Rotator Coding Challenge by Morote</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -36,7 +36,7 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/index.html"><img class="nav-logo"
-                        src="/img/Morote_white_underline.svg">APPNAME</a>
+                        src="/img/Morote_white_underline.svg">Rotator</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -54,7 +54,7 @@
                             <a class="nav-link active" aria-current="page" href="/code.html">Code</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Repo</a>
+                            <a class="nav-link" href="https://github.com/Grazerquart/rotator">Repo</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://smorote.com">About</a>
@@ -72,16 +72,70 @@
                     <pre class="line-numbers">
                         <code class="language-javascript">
 function getValues(){
+    // Grab User Input and assign it to variables for later use
     let messageInput = document.getElementById("message").value;
     let alertMessage = document.getElementById("alertMessage");
-    alertMessage.innerText = messageInput;
+    // Assign rewound to be the users input backwards
+    let rewound = rewind(messageInput)
+    let outputMessage = displayResults(messageInput, rewound, palindromeChecker(messageInput, rewound));
+    // Send data to the output message for the user to see
+    alertMessage.innerHTML = outputMessage;
+
+}
+function rewind(string) {
+    // Basic array reversal function
+    let rewound = "";
+    for (let i = string.length - 1; i >= 0; i--) {
+        // Iterate over the string backwards and push to a new array
+        rewound += string[i];
+    }
+    return rewound;
+}
+function palindromeChecker(input, rewound) {
+    // Check the input against the flipped version 
+    // This is a regex filter to clear any punctuation and whitespace from the string
+    let cleaner = /[\s\.,-\/#!$%\^&\*;:{}=\-_`~()@\+\?&gt;&lt;\[\]\+]/g;
+    // These next two lines normalize the text using the above
+    // regex and by making all letters lowercase
+    let inputClean = input.replace(cleaner, "").toLowerCase();
+    let rewoundClean = rewound.replace(cleaner, "").toLowerCase();
+    // Finally check if the cleaned input is the cleaned output
+    let palindrome = (inputClean == rewoundClean);
+    return palindrome;
+}
+
+function displayResults(input, output, palindrome) {
+    // Take the users input, flipped input, and whether it's
+    // a palindrome or not, and then return a message
+    // Make the alert box visible to the user
+    document.getElementById("alertMessage").style.opacity = 1;
+    // Use a ternary operator to swap between 
+    // congratulations and consolation
+    let result = palindrome ? "Which is in fact a palindrome, congratulations!" : "Which I'm sorry to say isn't a palindrome"
+    // Build out the HTML to be displayed
+    let message = `&lt;div&gt;Your message, &lt;i&gt;${input}&lt;/i&gt; reversed is &lt;i&gt;${output}&lt;/i&gt;&lt;br&gt;${result}&lt;/div&gt;`
+    // Change alert colors based on success or failure
+    if (palindrome) {
+        document.getElementById("alertMessage").classList.add("alert-success")
+        document.getElementById("alertMessage").classList.remove("alert-danger")
+    } else {
+        document.getElementById("alertMessage").classList.add("alert-danger")
+        document.getElementById("alertMessage").classList.remove("alert-success")
+    }
+    return message;
 }
                         </code>
                     </pre>
                 </div>
                 <div class="col-12 col-lg-4">
                     <h5>getValues</h5>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur atque asperiores doloribus est corrupti dolor rem sint fuga voluptatum, temporibus, expedita aliquam placeat accusamus aperiam! Dolore animi esse cupiditate voluptas?</p>
+                    <p>This function takes the user input and prepares it for use in the rest of the functions, which it then calls.</p>
+                    <h5>rewind</h5>
+                    <p>This takes the user's input and flips it backwards. I kept it seperate for the sake of making it cleaner to then give back the user's reversed message.</p>
+                    <h5>palindromeChecker</h5>
+                    <p>This uses the reversed string from the <i>rewind</i> function, and the user's non-reversed input to verify if something is a palindrome. It starts by cleaning both strings using regex, and then making them lowercase before checking to see if they are equivalent strings.</p>
+                    <h5>displayResults</h5>
+                    <p>Here we take the output from all of the other functions and use them to construct a message for the user. We also stylize the alert window based on success or failure.</p>
                 </div>
             </div>
         </div>

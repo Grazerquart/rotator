@@ -25,5 +25,12 @@ function displayResults(input, output, palindrome) {
     document.getElementById("alertMessage").style.opacity = 1;
     let result = palindrome ? "Which is in fact a palindrome, congratulations!" : "Which I'm sorry to say isn't a palindrome"
     let message = `<div>Your message, <i>${input}</i> reversed is <i>${output}</i><br>${result}</div>`
+    if (palindrome) {
+        document.getElementById("alertMessage").classList.add("alert-success")
+        document.getElementById("alertMessage").classList.remove("alert-danger")
+    } else {
+        document.getElementById("alertMessage").classList.add("alert-danger")
+        document.getElementById("alertMessage").classList.remove("alert-success")
+    }
     return message;
 }
