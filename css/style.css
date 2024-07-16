@@ -74,3 +74,7 @@ a:hover {
     --bs-btn-hover-bg: var(--sm-theme-800);
     --bs-btn-hover-border-color: var(--sm-theme-600);
 }
+#alertMessage {
+    opacity: 0;
+    transition: opacity .25s ease-in;
+}
