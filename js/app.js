@@ -14,11 +14,10 @@ function rewind(string) {
     return rewound;
 }
 function palindromeChecker(input, rewound) {
-    let cleaner = /[\s\.,-\/#!$%\^&\*;:{}=\-_`~()@\+\?><\[\]\+]/g;
+    let cleaner = /[^a-z0-9]/gi;
     let inputClean = input.replace(cleaner, "").toLowerCase();
     let rewoundClean = rewound.replace(cleaner, "").toLowerCase();
-    let palindrome = (inputClean == rewoundClean);
-    return palindrome;
+    return (inputClean == rewoundClean);
 }
 
 function displayResults(input, output, palindrome) {

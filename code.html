@@ -94,14 +94,13 @@ function rewind(string) {
 function palindromeChecker(input, rewound) {
     // Check the input against the flipped version 
     // This is a regex filter to clear any punctuation and whitespace from the string
-    let cleaner = /[\s\.,-\/#!$%\^&\*;:{}=\-_`~()@\+\?&gt;&lt;\[\]\+]/g;
+    let cleaner = /[^a-z0-9]/gi;
     // These next two lines normalize the text using the above
     // regex and by making all letters lowercase
     let inputClean = input.replace(cleaner, "").toLowerCase();
     let rewoundClean = rewound.replace(cleaner, "").toLowerCase();
     // Finally check if the cleaned input is the cleaned output
-    let palindrome = (inputClean == rewoundClean);
-    return palindrome;
+    return (inputClean == rewoundClean);
 }
 
 function displayResults(input, output, palindrome) {
